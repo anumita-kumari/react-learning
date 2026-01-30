@@ -1,0 +1,28 @@
+{
+  "name": "new-swiggy-app",
+  "version": "1.0.0",
+  "description": "my React App",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anumita-kumari/react-learning.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Anumita",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/anumita-kumari/react-learning/issues"
+  },
+  "homepage": "https://github.com/anumita-kumari/react-learning#readme",
+  "devDependencies": {
+    "parcel": "^2.16.3"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  }
+}
