@@ -1,0 +1,60 @@
+.header {
+  border: 1px solid #000;
+  justify-content: space-between;
+  width: 100%;
+  height: 120px;
+  display: flex;
+}
+
+.logo-img {
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+}
+
+.navigation-items {
+  margin: 25px;
+}
+
+.navigation-items > ul {
+  margin: 10px;
+  list-style-type: none;
+  display: flex;
+}
+
+.navigation-items > ul > li {
+  margin: 35px 5px;
+  font-size: 20px;
+}
+
+.restaurant-container {
+  flex-wrap: wrap;
+  margin: 5px;
+  display: flex;
+}
+
+.restaurant-card {
+  background-color: #f0f0f0;
+  width: 190px;
+  margin: 5px;
+}
+
+.res-logo {
+  width: 180px;
+  height: 150px;
+  padding: 5px;
+}
+
+.restaurant-card > h3, h4, h5 {
+  margin: 5px;
+}
+
+.restaurant-card:hover {
+  cursor: pointer;
+  border: 1px solid #000;
+}
+
+.res-image {
+  width: 190px;
+}
+/*# sourceMappingURL=new-swiggy-app.9e4c6fd2.css.map */

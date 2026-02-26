@@ -1,0 +1,16 @@
+-AppContainer
+
+    -Header
+        -Logo
+        -Navigation Bar
+        -LogOut
+    -Body
+        -Search
+        -Filter
+        -Restaurant Container
+            -Restaurant Card
+    -Footer
+        -Link
+        -CopyRight
+        -Address
+        -Contact
