@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { restaurants } from "./data";
+import { restaurants } from "./src/utils/data";
 import Footer from "./src/components/Footer";
 import Header from "./src/Components/Header";
 import { Body } from "./src/components/Body";

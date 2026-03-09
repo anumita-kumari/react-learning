@@ -727,7 +727,7 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _client = require("react-dom/client");
 var _clientDefault = parcelHelpers.interopDefault(_client);
-var _data = require("./data");
+var _data = require("./src/utils/data");
 var _footer = require("./src/components/Footer");
 var _footerDefault = parcelHelpers.interopDefault(_footer);
 var _header = require("./src/Components/Header");
@@ -774,7 +774,219 @@ $RefreshReg$(_c, "AppLayout");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"jMk1U","react-dom/client":"hrvwu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","react/jsx-dev-runtime":"dVPUn","./data":"fFIED","./src/components/Footer":"lq1kZ","./src/Components/Header":"50ygr","./src/components/Body":"loQlg"}],"jMk1U":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-dom/client":"hrvwu","./src/utils/data":"g2h7q","./src/components/Footer":"lq1kZ","./src/Components/Header":"50ygr","./src/components/Body":"loQlg","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"dVPUn":[function(require,module,exports,__globalThis) {
+'use strict';
+module.exports = require("ee51401569654d91");
+
+},{"ee51401569654d91":"gnlQf"}],"gnlQf":[function(require,module,exports,__globalThis) {
+/**
+ * @license React
+ * react-jsx-dev-runtime.development.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */ "use strict";
+(function() {
+    function getComponentNameFromType(type) {
+        if (null == type) return null;
+        if ("function" === typeof type) return type.$$typeof === REACT_CLIENT_REFERENCE ? null : type.displayName || type.name || null;
+        if ("string" === typeof type) return type;
+        switch(type){
+            case REACT_FRAGMENT_TYPE:
+                return "Fragment";
+            case REACT_PROFILER_TYPE:
+                return "Profiler";
+            case REACT_STRICT_MODE_TYPE:
+                return "StrictMode";
+            case REACT_SUSPENSE_TYPE:
+                return "Suspense";
+            case REACT_SUSPENSE_LIST_TYPE:
+                return "SuspenseList";
+            case REACT_ACTIVITY_TYPE:
+                return "Activity";
+        }
+        if ("object" === typeof type) switch("number" === typeof type.tag && console.error("Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue."), type.$$typeof){
+            case REACT_PORTAL_TYPE:
+                return "Portal";
+            case REACT_CONTEXT_TYPE:
+                return type.displayName || "Context";
+            case REACT_CONSUMER_TYPE:
+                return (type._context.displayName || "Context") + ".Consumer";
+            case REACT_FORWARD_REF_TYPE:
+                var innerType = type.render;
+                type = type.displayName;
+                type || (type = innerType.displayName || innerType.name || "", type = "" !== type ? "ForwardRef(" + type + ")" : "ForwardRef");
+                return type;
+            case REACT_MEMO_TYPE:
+                return innerType = type.displayName || null, null !== innerType ? innerType : getComponentNameFromType(type.type) || "Memo";
+            case REACT_LAZY_TYPE:
+                innerType = type._payload;
+                type = type._init;
+                try {
+                    return getComponentNameFromType(type(innerType));
+                } catch (x) {}
+        }
+        return null;
+    }
+    function testStringCoercion(value) {
+        return "" + value;
+    }
+    function checkKeyStringCoercion(value) {
+        try {
+            testStringCoercion(value);
+            var JSCompiler_inline_result = !1;
+        } catch (e) {
+            JSCompiler_inline_result = !0;
+        }
+        if (JSCompiler_inline_result) {
+            JSCompiler_inline_result = console;
+            var JSCompiler_temp_const = JSCompiler_inline_result.error;
+            var JSCompiler_inline_result$jscomp$0 = "function" === typeof Symbol && Symbol.toStringTag && value[Symbol.toStringTag] || value.constructor.name || "Object";
+            JSCompiler_temp_const.call(JSCompiler_inline_result, "The provided key is an unsupported type %s. This value must be coerced to a string before using it here.", JSCompiler_inline_result$jscomp$0);
+            return testStringCoercion(value);
+        }
+    }
+    function getTaskName(type) {
+        if (type === REACT_FRAGMENT_TYPE) return "<>";
+        if ("object" === typeof type && null !== type && type.$$typeof === REACT_LAZY_TYPE) return "<...>";
+        try {
+            var name = getComponentNameFromType(type);
+            return name ? "<" + name + ">" : "<...>";
+        } catch (x) {
+            return "<...>";
+        }
+    }
+    function getOwner() {
+        var dispatcher = ReactSharedInternals.A;
+        return null === dispatcher ? null : dispatcher.getOwner();
+    }
+    function UnknownOwner() {
+        return Error("react-stack-top-frame");
+    }
+    function hasValidKey(config) {
+        if (hasOwnProperty.call(config, "key")) {
+            var getter = Object.getOwnPropertyDescriptor(config, "key").get;
+            if (getter && getter.isReactWarning) return !1;
+        }
+        return void 0 !== config.key;
+    }
+    function defineKeyPropWarningGetter(props, displayName) {
+        function warnAboutAccessingKey() {
+            specialPropKeyWarningShown || (specialPropKeyWarningShown = !0, console.error("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://react.dev/link/special-props)", displayName));
+        }
+        warnAboutAccessingKey.isReactWarning = !0;
+        Object.defineProperty(props, "key", {
+            get: warnAboutAccessingKey,
+            configurable: !0
+        });
+    }
+    function elementRefGetterWithDeprecationWarning() {
+        var componentName = getComponentNameFromType(this.type);
+        didWarnAboutElementRef[componentName] || (didWarnAboutElementRef[componentName] = !0, console.error("Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release."));
+        componentName = this.props.ref;
+        return void 0 !== componentName ? componentName : null;
+    }
+    function ReactElement(type, key, props, owner, debugStack, debugTask) {
+        var refProp = props.ref;
+        type = {
+            $$typeof: REACT_ELEMENT_TYPE,
+            type: type,
+            key: key,
+            props: props,
+            _owner: owner
+        };
+        null !== (void 0 !== refProp ? refProp : null) ? Object.defineProperty(type, "ref", {
+            enumerable: !1,
+            get: elementRefGetterWithDeprecationWarning
+        }) : Object.defineProperty(type, "ref", {
+            enumerable: !1,
+            value: null
+        });
+        type._store = {};
+        Object.defineProperty(type._store, "validated", {
+            configurable: !1,
+            enumerable: !1,
+            writable: !0,
+            value: 0
+        });
+        Object.defineProperty(type, "_debugInfo", {
+            configurable: !1,
+            enumerable: !1,
+            writable: !0,
+            value: null
+        });
+        Object.defineProperty(type, "_debugStack", {
+            configurable: !1,
+            enumerable: !1,
+            writable: !0,
+            value: debugStack
+        });
+        Object.defineProperty(type, "_debugTask", {
+            configurable: !1,
+            enumerable: !1,
+            writable: !0,
+            value: debugTask
+        });
+        Object.freeze && (Object.freeze(type.props), Object.freeze(type));
+        return type;
+    }
+    function jsxDEVImpl(type, config, maybeKey, isStaticChildren, debugStack, debugTask) {
+        var children = config.children;
+        if (void 0 !== children) {
+            if (isStaticChildren) {
+                if (isArrayImpl(children)) {
+                    for(isStaticChildren = 0; isStaticChildren < children.length; isStaticChildren++)validateChildKeys(children[isStaticChildren]);
+                    Object.freeze && Object.freeze(children);
+                } else console.error("React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead.");
+            } else validateChildKeys(children);
+        }
+        if (hasOwnProperty.call(config, "key")) {
+            children = getComponentNameFromType(type);
+            var keys = Object.keys(config).filter(function(k) {
+                return "key" !== k;
+            });
+            isStaticChildren = 0 < keys.length ? "{key: someKey, " + keys.join(": ..., ") + ": ...}" : "{key: someKey}";
+            didWarnAboutKeySpread[children + isStaticChildren] || (keys = 0 < keys.length ? "{" + keys.join(": ..., ") + ": ...}" : "{}", console.error('A props object containing a "key" prop is being spread into JSX:\n  let props = %s;\n  <%s {...props} />\nReact keys must be passed directly to JSX without using spread:\n  let props = %s;\n  <%s key={someKey} {...props} />', isStaticChildren, children, keys, children), didWarnAboutKeySpread[children + isStaticChildren] = !0);
+        }
+        children = null;
+        void 0 !== maybeKey && (checkKeyStringCoercion(maybeKey), children = "" + maybeKey);
+        hasValidKey(config) && (checkKeyStringCoercion(config.key), children = "" + config.key);
+        if ("key" in config) {
+            maybeKey = {};
+            for(var propName in config)"key" !== propName && (maybeKey[propName] = config[propName]);
+        } else maybeKey = config;
+        children && defineKeyPropWarningGetter(maybeKey, "function" === typeof type ? type.displayName || type.name || "Unknown" : type);
+        return ReactElement(type, children, maybeKey, getOwner(), debugStack, debugTask);
+    }
+    function validateChildKeys(node) {
+        isValidElement(node) ? node._store && (node._store.validated = 1) : "object" === typeof node && null !== node && node.$$typeof === REACT_LAZY_TYPE && ("fulfilled" === node._payload.status ? isValidElement(node._payload.value) && node._payload.value._store && (node._payload.value._store.validated = 1) : node._store && (node._store.validated = 1));
+    }
+    function isValidElement(object) {
+        return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
+    }
+    var React = require("58362d9d82be395f"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+        return null;
+    };
+    React = {
+        react_stack_bottom_frame: function(callStackForError) {
+            return callStackForError();
+        }
+    };
+    var specialPropKeyWarningShown;
+    var didWarnAboutElementRef = {};
+    var unknownOwnerDebugStack = React.react_stack_bottom_frame.bind(React, UnknownOwner)();
+    var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
+    var didWarnAboutKeySpread = {};
+    exports.Fragment = REACT_FRAGMENT_TYPE;
+    exports.jsxDEV = function(type, config, maybeKey, isStaticChildren) {
+        var trackActualOwner = 1e4 > ReactSharedInternals.recentlyCreatedOwnerStacks++;
+        return jsxDEVImpl(type, config, maybeKey, isStaticChildren, trackActualOwner ? Error("react-stack-top-frame") : unknownOwnerDebugStack, trackActualOwner ? createTask(getTaskName(type)) : unknownOwnerDebugTask);
+    };
+})();
+
+},{"58362d9d82be395f":"jMk1U"}],"jMk1U":[function(require,module,exports,__globalThis) {
 'use strict';
 module.exports = require("a569817e6ea559f6");
 
@@ -17216,7 +17428,1871 @@ module.exports = require("b0f0e6b9e8349dac");
     "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
 })();
 
-},{"6f0162e9ab224cd4":"jMk1U"}],"jnFvT":[function(require,module,exports,__globalThis) {
+},{"6f0162e9ab224cd4":"jMk1U"}],"g2h7q":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "restaurants", ()=>restaurants);
+const restaurants = [
+    {
+        info: {
+            id: "10590",
+            name: "Pizza Hut",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2026/2/12/ffc7ef11-0be8-41b9-a843-ef47d17e607d_10590.JPG",
+            locality: "Bellandur",
+            areaName: "Bellandur",
+            costForTwo: "\u20B9300 for two",
+            cuisines: [
+                "Pizzas"
+            ],
+            avgRating: 4.3,
+            parentId: "721",
+            avgRatingString: "4.3",
+            totalRatingsString: "12K+",
+            sla: {
+                deliveryTime: 36,
+                lastMileTravel: 2.9,
+                serviceability: "SERVICEABLE",
+                slaString: "35-40 mins",
+                lastMileTravelString: "2.9 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 05:00:00",
+                opened: true
+            },
+            badges: {},
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {},
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "ITEMS",
+                subHeader: "AT \u20B9329"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "4.1",
+                    ratingCount: "104"
+                },
+                source: "GOOGLE",
+                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/pizza-hut-bellandur-rest10590",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "393838",
+            name: "Chinese Wok",
+            cloudinaryImageId: "e0839ff574213e6f35b3899ebf1fc597",
+            locality: "Kasavanahalli",
+            areaName: "Sarjapur Road",
+            costForTwo: "\u20B9250 for two",
+            cuisines: [
+                "Chinese",
+                "Asian",
+                "Tibetan",
+                "Desserts"
+            ],
+            avgRating: 4.2,
+            parentId: "61955",
+            avgRatingString: "4.2",
+            totalRatingsString: "8.4K+",
+            sla: {
+                deliveryTime: 27,
+                lastMileTravel: 2.4,
+                serviceability: "SERVICEABLE",
+                slaString: "25-30 mins",
+                lastMileTravelString: "2.4 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 02:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "ITEMS",
+                subHeader: "AT \u20B9119"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/chinese-wok-kasavanahalli-sarjapur-road-rest393838",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "733699",
+            name: "The Belgian Waffle Co.",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/16/78632ee1-5d51-48f0-9741-127c788b7f38_733699.jpg",
+            locality: "AMBALIPURA GRAMA",
+            areaName: "BELLANDUR GATE",
+            costForTwo: "\u20B9200 for two",
+            cuisines: [
+                "Waffle",
+                "Desserts",
+                "Ice Cream"
+            ],
+            avgRating: 4.5,
+            veg: true,
+            parentId: "2233",
+            avgRatingString: "4.5",
+            totalRatingsString: "1.8K+",
+            sla: {
+                deliveryTime: 28,
+                lastMileTravel: 1.9,
+                serviceability: "SERVICEABLE",
+                slaString: "25-30 mins",
+                lastMileTravelString: "1.9 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 01:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "\u20B9150 OFF",
+                subHeader: "ABOVE \u20B9999",
+                discountTag: "FLAT DEAL"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/the-belgian-waffle-co-ambalipura-grama-bellandur-gate-rest733699",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "386368",
+            name: "KFC",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2026/1/8/c623349d-182d-4d52-8e9e-1806925d15c7_386368.JPG",
+            locality: "Kasavanhalli",
+            areaName: "Bellandur",
+            costForTwo: "\u20B9400 for two",
+            cuisines: [
+                "Burgers",
+                "Fast Food",
+                "Rolls & Wraps"
+            ],
+            avgRating: 4.3,
+            parentId: "547",
+            avgRatingString: "4.3",
+            totalRatingsString: "9.3K+",
+            sla: {
+                deliveryTime: 20,
+                lastMileTravel: 1.9,
+                serviceability: "SERVICEABLE",
+                slaString: "20-25 mins",
+                lastMileTravelString: "1.9 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 00:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "50% OFF",
+                discountTag: "FLAT DEAL"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/kfc-kasavanhalli-bellandur-rest386368",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "643672",
+            name: "WeFit - Protein Bowls, Salads & Sandwiches",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/2/3/12c4be46-0e2e-4ffa-85b8-19301fa79cd2_643672.jpg",
+            locality: "Kaikondrahalli",
+            areaName: "Mahadevapura",
+            costForTwo: "\u20B9250 for two",
+            cuisines: [
+                "Healthy Food",
+                "Salads",
+                "Keto",
+                "Snacks"
+            ],
+            avgRating: 4.7,
+            parentId: "355285",
+            avgRatingString: "4.7",
+            totalRatingsString: "1.4K+",
+            sla: {
+                deliveryTime: 25,
+                lastMileTravel: 1.7,
+                serviceability: "SERVICEABLE",
+                slaString: "20-30 mins",
+                lastMileTravelString: "1.7 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 02:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "High%20Protein/rx%20tag%205.png",
+                        description: "High Protein"
+                    },
+                    {
+                        imageId: "Ratnesh_Badges/Rx_Awards_2025/Newcomers.png",
+                        description: "Delivery!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "High Protein",
+                                    imageId: "High%20Protein/rx%20tag%205.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Ratnesh_Badges/Rx_Awards_2025/Newcomers.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "50% OFF",
+                discountTag: "FLAT DEAL"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/wefit-protein-bowls-salads-and-sandwiches-kaikondrahalli-mahadevapura-rest643672",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "707715",
+            name: "Salad Days",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/9/14/0925d133-faf7-42d7-97aa-46a7be290ad8_707715.jpg",
+            locality: "Green Glen Layout",
+            areaName: "Bellandur",
+            costForTwo: "\u20B9500 for two",
+            cuisines: [
+                "Salads"
+            ],
+            avgRating: 4.5,
+            parentId: "796",
+            avgRatingString: "4.5",
+            totalRatingsString: "4.2K+",
+            sla: {
+                deliveryTime: 34,
+                lastMileTravel: 4.2,
+                serviceability: "SERVICEABLE",
+                slaString: "30-35 mins",
+                lastMileTravelString: "4.2 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 03:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "High%20Protein/rx%20tag%205.png",
+                        description: "High Protein"
+                    },
+                    {
+                        imageId: "newg.png",
+                        description: "Gourmet"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "High Protein",
+                                    imageId: "High%20Protein/rx%20tag%205.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Gourmet",
+                                    imageId: "newg.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "20% OFF",
+                subHeader: "UPTO \u20B950"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "4.2",
+                    ratingCount: "166"
+                },
+                source: "GOOGLE",
+                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/salad-days-green-glen-layout-bellandur-rest707715",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "209764",
+            name: "Third Wave Coffee",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/7/15/b507e65a-769e-442a-8e40-5f0109d68fff_209764.JPG",
+            locality: "Bellandur",
+            areaName: "Bellandur",
+            costForTwo: "\u20B9400 for two",
+            cuisines: [
+                "Beverages",
+                "Bakery",
+                "Continental"
+            ],
+            avgRating: 4.4,
+            parentId: "274773",
+            avgRatingString: "4.4",
+            totalRatingsString: "4.3K+",
+            sla: {
+                deliveryTime: 26,
+                lastMileTravel: 2.6,
+                serviceability: "SERVICEABLE",
+                slaString: "25-30 mins",
+                lastMileTravelString: "2.6 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 03:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "Rxawards/_CATEGORY-Cafe%20&%20Chai.png",
+                        description: "Delivery!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Rxawards/_CATEGORY-Cafe%20&%20Chai.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "50% OFF",
+                discountTag: "FLAT DEAL"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "4.4",
+                    ratingCount: "1.9K+"
+                },
+                source: "GOOGLE",
+                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/third-wave-coffee-bellandur-rest209764",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "586680",
+            name: "Dum Safar Biryani",
+            cloudinaryImageId: "s30regklvgzmcdlhypcq",
+            locality: "Daddakanahalli",
+            areaName: "Sarjapur Road",
+            costForTwo: "\u20B9500 for two",
+            cuisines: [
+                "Biryani",
+                "Hyderabadi",
+                "Kebabs",
+                "North Indian",
+                "barbeque"
+            ],
+            avgRating: 3.7,
+            parentId: "351013",
+            avgRatingString: "3.7",
+            totalRatingsString: "1.2K+",
+            sla: {
+                deliveryTime: 21,
+                lastMileTravel: 0.5,
+                serviceability: "SERVICEABLE",
+                slaString: "20-25 mins",
+                lastMileTravelString: "0.5 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-26 23:30:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "60% OFF",
+                subHeader: "UPTO \u20B9120"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/dum-safar-biryani-daddakanahalli-sarjapur-road-rest586680",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "43850",
+            name: "The Nosh House",
+            cloudinaryImageId: "t6c2esjgibs3nluwubvk",
+            locality: "Kasavanahalli",
+            areaName: "Sarjapur Road",
+            costForTwo: "\u20B9600 for two",
+            cuisines: [
+                "Continental",
+                "Healthy Food",
+                "Indian",
+                "Desserts",
+                "American",
+                "Mediterranean",
+                "Mexican",
+                "Thai",
+                "Asian",
+                "Pan-Asian",
+                "Burgers"
+            ],
+            avgRating: 4.6,
+            parentId: "21005",
+            avgRatingString: "4.6",
+            totalRatingsString: "39K+",
+            sla: {
+                deliveryTime: 27,
+                lastMileTravel: 0.8,
+                serviceability: "SERVICEABLE",
+                slaString: "25-30 mins",
+                lastMileTravelString: "0.8 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-26 22:45:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    },
+                    {
+                        imageId: "Green%20Dot%20Awards/Best%20In%20Veg%20Healthy.png",
+                        description: "Delivery!"
+                    },
+                    {
+                        imageId: "Rxawards/_CATEGORY-Sandwiches.png",
+                        description: "Delivery!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "C",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Green%20Dot%20Awards/Best%20In%20Veg%20Healthy.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Rxawards/_CATEGORY-Sandwiches.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "ITEMS",
+                subHeader: "AT \u20B999"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/the-nosh-house-kasavanahalli-sarjapur-road-rest43850",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "289238",
+            name: "Subway",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/12/971c4d6d-f092-44c2-94f6-ad0f57e373d4_289238.jpg",
+            locality: "Doddakannahalli",
+            areaName: "Bellandur Sarjapur",
+            costForTwo: "\u20B9350 for two",
+            cuisines: [
+                "sandwich",
+                "Salads",
+                "wrap",
+                "Healthy Food"
+            ],
+            avgRating: 4.2,
+            parentId: "2",
+            avgRatingString: "4.2",
+            totalRatingsString: "5.9K+",
+            sla: {
+                deliveryTime: 18,
+                lastMileTravel: 0.3,
+                serviceability: "SERVICEABLE",
+                slaString: "15-20 mins",
+                lastMileTravelString: "0.3 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 00:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    },
+                    {
+                        imageId: "High%20Protein/rx%20tag%205.png",
+                        description: "High Protein"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "High Protein",
+                                    imageId: "High%20Protein/rx%20tag%205.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "50% OFF",
+                subHeader: "UPTO \u20B9100"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/subway-doddakannahalli-bellandur-sarjapur-rest289238",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "649407",
+            name: "McDonald's",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/10/3/19569ad6-f537-410f-a545-a5ac8c1f40bc_649407.JPG",
+            locality: "Kaikondrahalli, Bengaluru",
+            areaName: "Sarjapur-Marathahalli Road",
+            costForTwo: "\u20B9400 for two",
+            cuisines: [
+                "Burgers",
+                "Beverages",
+                "Cafe",
+                "Desserts"
+            ],
+            avgRating: 4.4,
+            parentId: "630",
+            avgRatingString: "4.4",
+            totalRatingsString: "8.6K+",
+            sla: {
+                deliveryTime: 18,
+                lastMileTravel: 0.4,
+                serviceability: "SERVICEABLE",
+                slaString: "15-20 mins",
+                lastMileTravelString: "0.4 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 06:45:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    },
+                    {
+                        imageId: "Ratnesh_Badges/Rx_Awards_2025/Bolt.png",
+                        description: "Delivery!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Ratnesh_Badges/Rx_Awards_2025/Bolt.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "ITEMS",
+                subHeader: "AT \u20B999"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/mcdonalds-kaikondrahalli-bengaluru-sarjapur-marathahalli-road-rest649407",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "8069",
+            name: "Theobroma",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2026/2/25/c3dc0825-5482-4ace-9f4e-e2dfb698dcce_8069.JPG",
+            locality: "Sarjapur Road",
+            areaName: "Sarjapur Road",
+            costForTwo: "\u20B9400 for two",
+            cuisines: [
+                "Bakery"
+            ],
+            avgRating: 4.5,
+            parentId: "1040",
+            avgRatingString: "4.5",
+            totalRatingsString: "9.1K+",
+            sla: {
+                deliveryTime: 19,
+                lastMileTravel: 1.3,
+                serviceability: "SERVICEABLE",
+                slaString: "15-20 mins",
+                lastMileTravelString: "1.3 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-26 23:59:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    },
+                    {
+                        imageId: "Rxawards/_CATEGORY-Desserts.png",
+                        description: "Delivery!"
+                    },
+                    {
+                        imageId: "newg.png",
+                        description: "Gourmet"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Rxawards/_CATEGORY-Desserts.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Gourmet",
+                                    imageId: "newg.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "50% OFF",
+                discountTag: "FLAT DEAL"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "3.8",
+                    ratingCount: "370"
+                },
+                source: "GOOGLE",
+                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/theobroma-sarjapur-road-rest8069",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "742267",
+            name: "Paris Panini - Gourmet Sandwiches & Wraps",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/1/10/c72948e5-26d6-4d10-9cba-ed5170fac563_742267.jpg",
+            locality: "Sarjapur Road",
+            areaName: "Sarjapur Road",
+            costForTwo: "\u20B9500 for two",
+            cuisines: [
+                "sandwich",
+                "wrap",
+                "Fast Food",
+                "Pastas",
+                "Italian",
+                "Salads",
+                "Healthy Food",
+                "Desserts",
+                "Continental"
+            ],
+            avgRating: 4.6,
+            parentId: "21019",
+            avgRatingString: "4.6",
+            totalRatingsString: "4.7K+",
+            sla: {
+                deliveryTime: 23,
+                lastMileTravel: 1.2,
+                serviceability: "SERVICEABLE",
+                slaString: "20-25 mins",
+                lastMileTravelString: "1.2 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-26 23:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    },
+                    {
+                        imageId: "Rxawards/_CATEGORY-Sandwiches.png",
+                        description: "Delivery!"
+                    },
+                    {
+                        imageId: "newg.png",
+                        description: "Gourmet"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Rxawards/_CATEGORY-Sandwiches.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Gourmet",
+                                    imageId: "newg.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "ITEMS",
+                subHeader: "AT \u20B9132"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "3.9",
+                    ratingCount: "155"
+                },
+                source: "GOOGLE",
+                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/paris-panini-gourmet-sandwiches-and-wraps-sarjapur-road-rest742267",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "23793",
+            name: "Domino's Pizza",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/11/11/c876e654-6ec1-47d7-9a73-10bda7f9f742_23793.JPG",
+            locality: "Doddakannelli",
+            areaName: "Sarjapur Road",
+            costForTwo: "\u20B9400 for two",
+            cuisines: [
+                "Pizzas",
+                "Italian",
+                "Pastas",
+                "Desserts"
+            ],
+            avgRating: 4.3,
+            parentId: "2456",
+            avgRatingString: "4.3",
+            totalRatingsString: "16K+",
+            sla: {
+                deliveryTime: 20,
+                lastMileTravel: 0.4,
+                serviceability: "SERVICEABLE",
+                slaString: "15-20 mins",
+                lastMileTravelString: "0.4 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-26 23:59:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    },
+                    {
+                        imageId: "Rxawards/_CATEGORY-Pizza.png",
+                        description: "Delivery!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Rxawards/_CATEGORY-Pizza.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "ITEMS",
+                subHeader: "AT \u20B959"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "3.7",
+                    ratingCount: "2.4K+"
+                },
+                source: "GOOGLE",
+                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/dominos-pizza-doddakannelli-sarjapur-road-rest23793",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "72821",
+            name: "Burger King",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/18/1f9d675e-7e2e-4a7a-a494-6bdf23af4853_72821.jpg",
+            locality: "Dodda Kannali",
+            areaName: "Kaikondrahalli",
+            costForTwo: "\u20B9350 for two",
+            cuisines: [
+                "Burgers",
+                "American"
+            ],
+            avgRating: 4.1,
+            parentId: "166",
+            avgRatingString: "4.1",
+            totalRatingsString: "55K+",
+            sla: {
+                deliveryTime: 19,
+                lastMileTravel: 1.4,
+                serviceability: "SERVICEABLE",
+                slaString: "15-20 mins",
+                lastMileTravelString: "1.4 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 06:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "ITEMS",
+                subHeader: "AT \u20B959"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/burger-king-dodda-kannali-kaikondrahalli-rest72821",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "491",
+            name: "La Casa Brewery + Kitchen",
+            cloudinaryImageId: "yjh8kaozqsqpvadpcdga",
+            locality: "Sarjapur Road",
+            areaName: "Sarjapur Road",
+            costForTwo: "\u20B91000 for two",
+            cuisines: [
+                "Continental",
+                "North Indian",
+                "American",
+                "Chinese",
+                "Italian",
+                "Pizzas",
+                "Pastas",
+                "Steakhouse",
+                "Salads",
+                "Desserts"
+            ],
+            avgRating: 4.4,
+            parentId: "471640",
+            avgRatingString: "4.4",
+            totalRatingsString: "10K+",
+            sla: {
+                deliveryTime: 27,
+                lastMileTravel: 1.8,
+                serviceability: "SERVICEABLE",
+                slaString: "25-30 mins",
+                lastMileTravelString: "1.8 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-26 23:30:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    },
+                    {
+                        imageId: "newg.png",
+                        description: "Gourmet"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Gourmet",
+                                    imageId: "newg.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "60% OFF",
+                subHeader: "UPTO \u20B9120"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "4.2",
+                    ratingCount: "9.5K+"
+                },
+                source: "GOOGLE",
+                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/la-casa-brewery-kitchen-sarjapur-road-rest491",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "750232",
+            name: "Daily Kitchen - Everyday Homely Meals",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/10/d695071b-3f6c-42e3-ab65-254150948db3_750232.jpg",
+            locality: "Kaikondrahalli",
+            areaName: "Mahadevapura",
+            costForTwo: "\u20B9250 for two",
+            cuisines: [
+                "Home Food",
+                "Indian",
+                "North Indian",
+                "Thalis"
+            ],
+            avgRating: 4.5,
+            parentId: "444382",
+            avgRatingString: "4.5",
+            totalRatingsString: "1.3K+",
+            sla: {
+                deliveryTime: 25,
+                lastMileTravel: 1.7,
+                serviceability: "SERVICEABLE",
+                slaString: "20-30 mins",
+                lastMileTravelString: "1.7 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 02:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "Ratnesh_Badges/Rx_Awards_2025/Newcomers.png",
+                        description: "Delivery!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Ratnesh_Badges/Rx_Awards_2025/Newcomers.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "50% OFF",
+                discountTag: "FLAT DEAL"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/daily-kitchen-everyday-homely-meals-kaikondrahalli-mahadevapura-rest750232",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "533218",
+            name: "Goila Butter Chicken",
+            cloudinaryImageId: "5e19832da032dd69547565e27104706f",
+            locality: "Sarjapur Rd",
+            areaName: "Sarjapur Road",
+            costForTwo: "\u20B9600 for two",
+            cuisines: [
+                "North Indian",
+                "Biryani",
+                "Kebabs",
+                "Desserts"
+            ],
+            avgRating: 4.1,
+            parentId: "322587",
+            avgRatingString: "4.1",
+            totalRatingsString: "1.8K+",
+            sla: {
+                deliveryTime: 32,
+                lastMileTravel: 3,
+                serviceability: "SERVICEABLE",
+                slaString: "30-35 mins",
+                lastMileTravelString: "3.0 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 00:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "newg.png",
+                        description: "Gourmet"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "Gourmet",
+                                    imageId: "newg.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "60% OFF",
+                subHeader: "UPTO \u20B9120"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "--"
+                }
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/goila-butter-chicken-sarjapur-rd-sarjapur-road-rest533218",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "8246",
+            name: "Polar Bear",
+            cloudinaryImageId: "57262fe3839f0bff174f3d7e7cc8a2b4",
+            locality: "Sarjapur Road",
+            areaName: "Sarjapur Road",
+            costForTwo: "\u20B9200 for two",
+            cuisines: [
+                "Ice Cream",
+                "Desserts"
+            ],
+            avgRating: 4.6,
+            veg: true,
+            parentId: "726",
+            avgRatingString: "4.6",
+            totalRatingsString: "18K+",
+            sla: {
+                deliveryTime: 26,
+                lastMileTravel: 3.5,
+                serviceability: "SERVICEABLE",
+                slaString: "25-30 mins",
+                lastMileTravelString: "3.5 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-27 02:00:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "Ratnesh_Badges/Rx_Awards_2025/Icecream.png",
+                        description: "Delivery!"
+                    }
+                ]
+            },
+            isOpen: true,
+            aggregatedDiscountInfoV2: {},
+            type: "D",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Ratnesh_Badges/Rx_Awards_2025/Icecream.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "4.8",
+                    ratingCount: "2.7K+"
+                },
+                source: "GOOGLE",
+                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/polar-bear-sarjapur-road-rest8246",
+            type: "WEBLINK"
+        }
+    },
+    {
+        info: {
+            id: "339080",
+            name: "Starbucks Coffee",
+            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2026/2/6/0eef7fb5-40d6-4b64-ae3d-d16b1e4222f9_339080.JPG",
+            locality: "Bellandur",
+            areaName: "Bellandur",
+            costForTwo: "\u20B9400 for two",
+            cuisines: [
+                "Beverages",
+                "Cafe",
+                "Snacks",
+                "Desserts",
+                "Bakery",
+                "Ice Cream"
+            ],
+            avgRating: 4.4,
+            parentId: "195515",
+            avgRatingString: "4.4",
+            totalRatingsString: "2.9K+",
+            sla: {
+                deliveryTime: 29,
+                lastMileTravel: 2.8,
+                serviceability: "SERVICEABLE",
+                slaString: "25-30 mins",
+                lastMileTravelString: "2.8 km",
+                iconType: "ICON_TYPE_EMPTY"
+            },
+            availability: {
+                nextCloseTime: "2026-02-26 23:59:00",
+                opened: true
+            },
+            badges: {
+                imageBadges: [
+                    {
+                        imageId: "android/static-assets/icons/big_rx.png",
+                        description: "bolt!"
+                    },
+                    {
+                        imageId: "Green%20Dot%20Awards/Best%20In%20Veg%20Cafe.png",
+                        description: "Delivery!"
+                    },
+                    {
+                        imageId: "Rxawards/_CATEGORY-Cafe%20&%20Chai.png",
+                        description: "Delivery!"
+                    }
+                ]
+            },
+            isOpen: true,
+            type: "F",
+            badgesV2: {
+                entityBadges: {
+                    imageBased: {
+                        badgeObject: [
+                            {
+                                attributes: {
+                                    description: "bolt!",
+                                    imageId: "android/static-assets/icons/big_rx.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Green%20Dot%20Awards/Best%20In%20Veg%20Cafe.png"
+                                }
+                            },
+                            {
+                                attributes: {
+                                    description: "Delivery!",
+                                    imageId: "Rxawards/_CATEGORY-Cafe%20&%20Chai.png"
+                                }
+                            }
+                        ]
+                    },
+                    textBased: {},
+                    textExtendedBadges: {}
+                }
+            },
+            aggregatedDiscountInfoV3: {
+                header: "\u20B985 OFF",
+                subHeader: "ABOVE \u20B9199",
+                discountTag: "FLAT DEAL"
+            },
+            differentiatedUi: {
+                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                differentiatedUiMediaDetails: {
+                    lottie: {},
+                    video: {}
+                }
+            },
+            reviewsSummary: {},
+            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+            restaurantOfferPresentationInfo: {},
+            externalRatings: {
+                aggregatedRating: {
+                    rating: "4.4",
+                    ratingCount: "797"
+                },
+                source: "GOOGLE",
+                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
+            },
+            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+        },
+        analytics: {
+            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
+        },
+        cta: {
+            link: "https://www.swiggy.com/city/bangalore/starbucks-coffee-bellandur-rest339080",
+            type: "WEBLINK"
+        }
+    }
+];
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -17246,7 +19322,37 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"7h6Pi":[function(require,module,exports,__globalThis) {
+},{}],"lq1kZ":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$a646 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$a646.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$a646.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const Footer = ()=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "footer"
+    }, void 0, false, {
+        fileName: "src/components/Footer.js",
+        lineNumber: 2,
+        columnNumber: 10
+    }, undefined);
+};
+_c = Footer;
+exports.default = Footer;
+var _c;
+$RefreshReg$(_c, "Footer");
+
+  $parcel$ReactRefreshHelpers$a646.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"7h6Pi":[function(require,module,exports,__globalThis) {
 "use strict";
 var Refresh = require("7422ead32dcc1e6b");
 function debounce(func, delay) {
@@ -19524,2113 +21630,7 @@ function $da9882e673ac146b$var$ErrorOverlay() {
     return null;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"dVPUn":[function(require,module,exports,__globalThis) {
-'use strict';
-module.exports = require("ee51401569654d91");
-
-},{"ee51401569654d91":"gnlQf"}],"gnlQf":[function(require,module,exports,__globalThis) {
-/**
- * @license React
- * react-jsx-dev-runtime.development.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */ "use strict";
-(function() {
-    function getComponentNameFromType(type) {
-        if (null == type) return null;
-        if ("function" === typeof type) return type.$$typeof === REACT_CLIENT_REFERENCE ? null : type.displayName || type.name || null;
-        if ("string" === typeof type) return type;
-        switch(type){
-            case REACT_FRAGMENT_TYPE:
-                return "Fragment";
-            case REACT_PROFILER_TYPE:
-                return "Profiler";
-            case REACT_STRICT_MODE_TYPE:
-                return "StrictMode";
-            case REACT_SUSPENSE_TYPE:
-                return "Suspense";
-            case REACT_SUSPENSE_LIST_TYPE:
-                return "SuspenseList";
-            case REACT_ACTIVITY_TYPE:
-                return "Activity";
-        }
-        if ("object" === typeof type) switch("number" === typeof type.tag && console.error("Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue."), type.$$typeof){
-            case REACT_PORTAL_TYPE:
-                return "Portal";
-            case REACT_CONTEXT_TYPE:
-                return type.displayName || "Context";
-            case REACT_CONSUMER_TYPE:
-                return (type._context.displayName || "Context") + ".Consumer";
-            case REACT_FORWARD_REF_TYPE:
-                var innerType = type.render;
-                type = type.displayName;
-                type || (type = innerType.displayName || innerType.name || "", type = "" !== type ? "ForwardRef(" + type + ")" : "ForwardRef");
-                return type;
-            case REACT_MEMO_TYPE:
-                return innerType = type.displayName || null, null !== innerType ? innerType : getComponentNameFromType(type.type) || "Memo";
-            case REACT_LAZY_TYPE:
-                innerType = type._payload;
-                type = type._init;
-                try {
-                    return getComponentNameFromType(type(innerType));
-                } catch (x) {}
-        }
-        return null;
-    }
-    function testStringCoercion(value) {
-        return "" + value;
-    }
-    function checkKeyStringCoercion(value) {
-        try {
-            testStringCoercion(value);
-            var JSCompiler_inline_result = !1;
-        } catch (e) {
-            JSCompiler_inline_result = !0;
-        }
-        if (JSCompiler_inline_result) {
-            JSCompiler_inline_result = console;
-            var JSCompiler_temp_const = JSCompiler_inline_result.error;
-            var JSCompiler_inline_result$jscomp$0 = "function" === typeof Symbol && Symbol.toStringTag && value[Symbol.toStringTag] || value.constructor.name || "Object";
-            JSCompiler_temp_const.call(JSCompiler_inline_result, "The provided key is an unsupported type %s. This value must be coerced to a string before using it here.", JSCompiler_inline_result$jscomp$0);
-            return testStringCoercion(value);
-        }
-    }
-    function getTaskName(type) {
-        if (type === REACT_FRAGMENT_TYPE) return "<>";
-        if ("object" === typeof type && null !== type && type.$$typeof === REACT_LAZY_TYPE) return "<...>";
-        try {
-            var name = getComponentNameFromType(type);
-            return name ? "<" + name + ">" : "<...>";
-        } catch (x) {
-            return "<...>";
-        }
-    }
-    function getOwner() {
-        var dispatcher = ReactSharedInternals.A;
-        return null === dispatcher ? null : dispatcher.getOwner();
-    }
-    function UnknownOwner() {
-        return Error("react-stack-top-frame");
-    }
-    function hasValidKey(config) {
-        if (hasOwnProperty.call(config, "key")) {
-            var getter = Object.getOwnPropertyDescriptor(config, "key").get;
-            if (getter && getter.isReactWarning) return !1;
-        }
-        return void 0 !== config.key;
-    }
-    function defineKeyPropWarningGetter(props, displayName) {
-        function warnAboutAccessingKey() {
-            specialPropKeyWarningShown || (specialPropKeyWarningShown = !0, console.error("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://react.dev/link/special-props)", displayName));
-        }
-        warnAboutAccessingKey.isReactWarning = !0;
-        Object.defineProperty(props, "key", {
-            get: warnAboutAccessingKey,
-            configurable: !0
-        });
-    }
-    function elementRefGetterWithDeprecationWarning() {
-        var componentName = getComponentNameFromType(this.type);
-        didWarnAboutElementRef[componentName] || (didWarnAboutElementRef[componentName] = !0, console.error("Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release."));
-        componentName = this.props.ref;
-        return void 0 !== componentName ? componentName : null;
-    }
-    function ReactElement(type, key, props, owner, debugStack, debugTask) {
-        var refProp = props.ref;
-        type = {
-            $$typeof: REACT_ELEMENT_TYPE,
-            type: type,
-            key: key,
-            props: props,
-            _owner: owner
-        };
-        null !== (void 0 !== refProp ? refProp : null) ? Object.defineProperty(type, "ref", {
-            enumerable: !1,
-            get: elementRefGetterWithDeprecationWarning
-        }) : Object.defineProperty(type, "ref", {
-            enumerable: !1,
-            value: null
-        });
-        type._store = {};
-        Object.defineProperty(type._store, "validated", {
-            configurable: !1,
-            enumerable: !1,
-            writable: !0,
-            value: 0
-        });
-        Object.defineProperty(type, "_debugInfo", {
-            configurable: !1,
-            enumerable: !1,
-            writable: !0,
-            value: null
-        });
-        Object.defineProperty(type, "_debugStack", {
-            configurable: !1,
-            enumerable: !1,
-            writable: !0,
-            value: debugStack
-        });
-        Object.defineProperty(type, "_debugTask", {
-            configurable: !1,
-            enumerable: !1,
-            writable: !0,
-            value: debugTask
-        });
-        Object.freeze && (Object.freeze(type.props), Object.freeze(type));
-        return type;
-    }
-    function jsxDEVImpl(type, config, maybeKey, isStaticChildren, debugStack, debugTask) {
-        var children = config.children;
-        if (void 0 !== children) {
-            if (isStaticChildren) {
-                if (isArrayImpl(children)) {
-                    for(isStaticChildren = 0; isStaticChildren < children.length; isStaticChildren++)validateChildKeys(children[isStaticChildren]);
-                    Object.freeze && Object.freeze(children);
-                } else console.error("React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead.");
-            } else validateChildKeys(children);
-        }
-        if (hasOwnProperty.call(config, "key")) {
-            children = getComponentNameFromType(type);
-            var keys = Object.keys(config).filter(function(k) {
-                return "key" !== k;
-            });
-            isStaticChildren = 0 < keys.length ? "{key: someKey, " + keys.join(": ..., ") + ": ...}" : "{key: someKey}";
-            didWarnAboutKeySpread[children + isStaticChildren] || (keys = 0 < keys.length ? "{" + keys.join(": ..., ") + ": ...}" : "{}", console.error('A props object containing a "key" prop is being spread into JSX:\n  let props = %s;\n  <%s {...props} />\nReact keys must be passed directly to JSX without using spread:\n  let props = %s;\n  <%s key={someKey} {...props} />', isStaticChildren, children, keys, children), didWarnAboutKeySpread[children + isStaticChildren] = !0);
-        }
-        children = null;
-        void 0 !== maybeKey && (checkKeyStringCoercion(maybeKey), children = "" + maybeKey);
-        hasValidKey(config) && (checkKeyStringCoercion(config.key), children = "" + config.key);
-        if ("key" in config) {
-            maybeKey = {};
-            for(var propName in config)"key" !== propName && (maybeKey[propName] = config[propName]);
-        } else maybeKey = config;
-        children && defineKeyPropWarningGetter(maybeKey, "function" === typeof type ? type.displayName || type.name || "Unknown" : type);
-        return ReactElement(type, children, maybeKey, getOwner(), debugStack, debugTask);
-    }
-    function validateChildKeys(node) {
-        isValidElement(node) ? node._store && (node._store.validated = 1) : "object" === typeof node && null !== node && node.$$typeof === REACT_LAZY_TYPE && ("fulfilled" === node._payload.status ? isValidElement(node._payload.value) && node._payload.value._store && (node._payload.value._store.validated = 1) : node._store && (node._store.validated = 1));
-    }
-    function isValidElement(object) {
-        return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
-    }
-    var React = require("58362d9d82be395f"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
-        return null;
-    };
-    React = {
-        react_stack_bottom_frame: function(callStackForError) {
-            return callStackForError();
-        }
-    };
-    var specialPropKeyWarningShown;
-    var didWarnAboutElementRef = {};
-    var unknownOwnerDebugStack = React.react_stack_bottom_frame.bind(React, UnknownOwner)();
-    var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
-    var didWarnAboutKeySpread = {};
-    exports.Fragment = REACT_FRAGMENT_TYPE;
-    exports.jsxDEV = function(type, config, maybeKey, isStaticChildren) {
-        var trackActualOwner = 1e4 > ReactSharedInternals.recentlyCreatedOwnerStacks++;
-        return jsxDEVImpl(type, config, maybeKey, isStaticChildren, trackActualOwner ? Error("react-stack-top-frame") : unknownOwnerDebugStack, trackActualOwner ? createTask(getTaskName(type)) : unknownOwnerDebugTask);
-    };
-})();
-
-},{"58362d9d82be395f":"jMk1U"}],"fFIED":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "restaurants", ()=>restaurants);
-const restaurants = [
-    {
-        info: {
-            id: "10590",
-            name: "Pizza Hut",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2026/2/12/ffc7ef11-0be8-41b9-a843-ef47d17e607d_10590.JPG",
-            locality: "Bellandur",
-            areaName: "Bellandur",
-            costForTwo: "\u20B9300 for two",
-            cuisines: [
-                "Pizzas"
-            ],
-            avgRating: 4.3,
-            parentId: "721",
-            avgRatingString: "4.3",
-            totalRatingsString: "12K+",
-            sla: {
-                deliveryTime: 36,
-                lastMileTravel: 2.9,
-                serviceability: "SERVICEABLE",
-                slaString: "35-40 mins",
-                lastMileTravelString: "2.9 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 05:00:00",
-                opened: true
-            },
-            badges: {},
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {},
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "ITEMS",
-                subHeader: "AT \u20B9329"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "4.1",
-                    ratingCount: "104"
-                },
-                source: "GOOGLE",
-                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/pizza-hut-bellandur-rest10590",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "393838",
-            name: "Chinese Wok",
-            cloudinaryImageId: "e0839ff574213e6f35b3899ebf1fc597",
-            locality: "Kasavanahalli",
-            areaName: "Sarjapur Road",
-            costForTwo: "\u20B9250 for two",
-            cuisines: [
-                "Chinese",
-                "Asian",
-                "Tibetan",
-                "Desserts"
-            ],
-            avgRating: 4.2,
-            parentId: "61955",
-            avgRatingString: "4.2",
-            totalRatingsString: "8.4K+",
-            sla: {
-                deliveryTime: 27,
-                lastMileTravel: 2.4,
-                serviceability: "SERVICEABLE",
-                slaString: "25-30 mins",
-                lastMileTravelString: "2.4 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 02:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "ITEMS",
-                subHeader: "AT \u20B9119"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/chinese-wok-kasavanahalli-sarjapur-road-rest393838",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "733699",
-            name: "The Belgian Waffle Co.",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/16/78632ee1-5d51-48f0-9741-127c788b7f38_733699.jpg",
-            locality: "AMBALIPURA GRAMA",
-            areaName: "BELLANDUR GATE",
-            costForTwo: "\u20B9200 for two",
-            cuisines: [
-                "Waffle",
-                "Desserts",
-                "Ice Cream"
-            ],
-            avgRating: 4.5,
-            veg: true,
-            parentId: "2233",
-            avgRatingString: "4.5",
-            totalRatingsString: "1.8K+",
-            sla: {
-                deliveryTime: 28,
-                lastMileTravel: 1.9,
-                serviceability: "SERVICEABLE",
-                slaString: "25-30 mins",
-                lastMileTravelString: "1.9 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 01:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "\u20B9150 OFF",
-                subHeader: "ABOVE \u20B9999",
-                discountTag: "FLAT DEAL"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/the-belgian-waffle-co-ambalipura-grama-bellandur-gate-rest733699",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "386368",
-            name: "KFC",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2026/1/8/c623349d-182d-4d52-8e9e-1806925d15c7_386368.JPG",
-            locality: "Kasavanhalli",
-            areaName: "Bellandur",
-            costForTwo: "\u20B9400 for two",
-            cuisines: [
-                "Burgers",
-                "Fast Food",
-                "Rolls & Wraps"
-            ],
-            avgRating: 4.3,
-            parentId: "547",
-            avgRatingString: "4.3",
-            totalRatingsString: "9.3K+",
-            sla: {
-                deliveryTime: 20,
-                lastMileTravel: 1.9,
-                serviceability: "SERVICEABLE",
-                slaString: "20-25 mins",
-                lastMileTravelString: "1.9 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 00:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "50% OFF",
-                discountTag: "FLAT DEAL"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/kfc-kasavanhalli-bellandur-rest386368",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "643672",
-            name: "WeFit - Protein Bowls, Salads & Sandwiches",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/2/3/12c4be46-0e2e-4ffa-85b8-19301fa79cd2_643672.jpg",
-            locality: "Kaikondrahalli",
-            areaName: "Mahadevapura",
-            costForTwo: "\u20B9250 for two",
-            cuisines: [
-                "Healthy Food",
-                "Salads",
-                "Keto",
-                "Snacks"
-            ],
-            avgRating: 4.7,
-            parentId: "355285",
-            avgRatingString: "4.7",
-            totalRatingsString: "1.4K+",
-            sla: {
-                deliveryTime: 25,
-                lastMileTravel: 1.7,
-                serviceability: "SERVICEABLE",
-                slaString: "20-30 mins",
-                lastMileTravelString: "1.7 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 02:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "High%20Protein/rx%20tag%205.png",
-                        description: "High Protein"
-                    },
-                    {
-                        imageId: "Ratnesh_Badges/Rx_Awards_2025/Newcomers.png",
-                        description: "Delivery!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "High Protein",
-                                    imageId: "High%20Protein/rx%20tag%205.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Ratnesh_Badges/Rx_Awards_2025/Newcomers.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "50% OFF",
-                discountTag: "FLAT DEAL"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/wefit-protein-bowls-salads-and-sandwiches-kaikondrahalli-mahadevapura-rest643672",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "707715",
-            name: "Salad Days",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/9/14/0925d133-faf7-42d7-97aa-46a7be290ad8_707715.jpg",
-            locality: "Green Glen Layout",
-            areaName: "Bellandur",
-            costForTwo: "\u20B9500 for two",
-            cuisines: [
-                "Salads"
-            ],
-            avgRating: 4.5,
-            parentId: "796",
-            avgRatingString: "4.5",
-            totalRatingsString: "4.2K+",
-            sla: {
-                deliveryTime: 34,
-                lastMileTravel: 4.2,
-                serviceability: "SERVICEABLE",
-                slaString: "30-35 mins",
-                lastMileTravelString: "4.2 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 03:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "High%20Protein/rx%20tag%205.png",
-                        description: "High Protein"
-                    },
-                    {
-                        imageId: "newg.png",
-                        description: "Gourmet"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "High Protein",
-                                    imageId: "High%20Protein/rx%20tag%205.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Gourmet",
-                                    imageId: "newg.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "20% OFF",
-                subHeader: "UPTO \u20B950"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "4.2",
-                    ratingCount: "166"
-                },
-                source: "GOOGLE",
-                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/salad-days-green-glen-layout-bellandur-rest707715",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "209764",
-            name: "Third Wave Coffee",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/7/15/b507e65a-769e-442a-8e40-5f0109d68fff_209764.JPG",
-            locality: "Bellandur",
-            areaName: "Bellandur",
-            costForTwo: "\u20B9400 for two",
-            cuisines: [
-                "Beverages",
-                "Bakery",
-                "Continental"
-            ],
-            avgRating: 4.4,
-            parentId: "274773",
-            avgRatingString: "4.4",
-            totalRatingsString: "4.3K+",
-            sla: {
-                deliveryTime: 26,
-                lastMileTravel: 2.6,
-                serviceability: "SERVICEABLE",
-                slaString: "25-30 mins",
-                lastMileTravelString: "2.6 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 03:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "Rxawards/_CATEGORY-Cafe%20&%20Chai.png",
-                        description: "Delivery!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Rxawards/_CATEGORY-Cafe%20&%20Chai.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "50% OFF",
-                discountTag: "FLAT DEAL"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "4.4",
-                    ratingCount: "1.9K+"
-                },
-                source: "GOOGLE",
-                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/third-wave-coffee-bellandur-rest209764",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "586680",
-            name: "Dum Safar Biryani",
-            cloudinaryImageId: "s30regklvgzmcdlhypcq",
-            locality: "Daddakanahalli",
-            areaName: "Sarjapur Road",
-            costForTwo: "\u20B9500 for two",
-            cuisines: [
-                "Biryani",
-                "Hyderabadi",
-                "Kebabs",
-                "North Indian",
-                "barbeque"
-            ],
-            avgRating: 3.7,
-            parentId: "351013",
-            avgRatingString: "3.7",
-            totalRatingsString: "1.2K+",
-            sla: {
-                deliveryTime: 21,
-                lastMileTravel: 0.5,
-                serviceability: "SERVICEABLE",
-                slaString: "20-25 mins",
-                lastMileTravelString: "0.5 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-26 23:30:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "60% OFF",
-                subHeader: "UPTO \u20B9120"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/dum-safar-biryani-daddakanahalli-sarjapur-road-rest586680",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "43850",
-            name: "The Nosh House",
-            cloudinaryImageId: "t6c2esjgibs3nluwubvk",
-            locality: "Kasavanahalli",
-            areaName: "Sarjapur Road",
-            costForTwo: "\u20B9600 for two",
-            cuisines: [
-                "Continental",
-                "Healthy Food",
-                "Indian",
-                "Desserts",
-                "American",
-                "Mediterranean",
-                "Mexican",
-                "Thai",
-                "Asian",
-                "Pan-Asian",
-                "Burgers"
-            ],
-            avgRating: 4.6,
-            parentId: "21005",
-            avgRatingString: "4.6",
-            totalRatingsString: "39K+",
-            sla: {
-                deliveryTime: 27,
-                lastMileTravel: 0.8,
-                serviceability: "SERVICEABLE",
-                slaString: "25-30 mins",
-                lastMileTravelString: "0.8 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-26 22:45:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    },
-                    {
-                        imageId: "Green%20Dot%20Awards/Best%20In%20Veg%20Healthy.png",
-                        description: "Delivery!"
-                    },
-                    {
-                        imageId: "Rxawards/_CATEGORY-Sandwiches.png",
-                        description: "Delivery!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "C",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Green%20Dot%20Awards/Best%20In%20Veg%20Healthy.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Rxawards/_CATEGORY-Sandwiches.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "ITEMS",
-                subHeader: "AT \u20B999"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/the-nosh-house-kasavanahalli-sarjapur-road-rest43850",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "289238",
-            name: "Subway",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/12/971c4d6d-f092-44c2-94f6-ad0f57e373d4_289238.jpg",
-            locality: "Doddakannahalli",
-            areaName: "Bellandur Sarjapur",
-            costForTwo: "\u20B9350 for two",
-            cuisines: [
-                "sandwich",
-                "Salads",
-                "wrap",
-                "Healthy Food"
-            ],
-            avgRating: 4.2,
-            parentId: "2",
-            avgRatingString: "4.2",
-            totalRatingsString: "5.9K+",
-            sla: {
-                deliveryTime: 18,
-                lastMileTravel: 0.3,
-                serviceability: "SERVICEABLE",
-                slaString: "15-20 mins",
-                lastMileTravelString: "0.3 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 00:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    },
-                    {
-                        imageId: "High%20Protein/rx%20tag%205.png",
-                        description: "High Protein"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "High Protein",
-                                    imageId: "High%20Protein/rx%20tag%205.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "50% OFF",
-                subHeader: "UPTO \u20B9100"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/subway-doddakannahalli-bellandur-sarjapur-rest289238",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "649407",
-            name: "McDonald's",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/10/3/19569ad6-f537-410f-a545-a5ac8c1f40bc_649407.JPG",
-            locality: "Kaikondrahalli, Bengaluru",
-            areaName: "Sarjapur-Marathahalli Road",
-            costForTwo: "\u20B9400 for two",
-            cuisines: [
-                "Burgers",
-                "Beverages",
-                "Cafe",
-                "Desserts"
-            ],
-            avgRating: 4.4,
-            parentId: "630",
-            avgRatingString: "4.4",
-            totalRatingsString: "8.6K+",
-            sla: {
-                deliveryTime: 18,
-                lastMileTravel: 0.4,
-                serviceability: "SERVICEABLE",
-                slaString: "15-20 mins",
-                lastMileTravelString: "0.4 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 06:45:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    },
-                    {
-                        imageId: "Ratnesh_Badges/Rx_Awards_2025/Bolt.png",
-                        description: "Delivery!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Ratnesh_Badges/Rx_Awards_2025/Bolt.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "ITEMS",
-                subHeader: "AT \u20B999"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/mcdonalds-kaikondrahalli-bengaluru-sarjapur-marathahalli-road-rest649407",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "8069",
-            name: "Theobroma",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2026/2/25/c3dc0825-5482-4ace-9f4e-e2dfb698dcce_8069.JPG",
-            locality: "Sarjapur Road",
-            areaName: "Sarjapur Road",
-            costForTwo: "\u20B9400 for two",
-            cuisines: [
-                "Bakery"
-            ],
-            avgRating: 4.5,
-            parentId: "1040",
-            avgRatingString: "4.5",
-            totalRatingsString: "9.1K+",
-            sla: {
-                deliveryTime: 19,
-                lastMileTravel: 1.3,
-                serviceability: "SERVICEABLE",
-                slaString: "15-20 mins",
-                lastMileTravelString: "1.3 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-26 23:59:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    },
-                    {
-                        imageId: "Rxawards/_CATEGORY-Desserts.png",
-                        description: "Delivery!"
-                    },
-                    {
-                        imageId: "newg.png",
-                        description: "Gourmet"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Rxawards/_CATEGORY-Desserts.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Gourmet",
-                                    imageId: "newg.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "50% OFF",
-                discountTag: "FLAT DEAL"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "3.8",
-                    ratingCount: "370"
-                },
-                source: "GOOGLE",
-                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/theobroma-sarjapur-road-rest8069",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "742267",
-            name: "Paris Panini - Gourmet Sandwiches & Wraps",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/1/10/c72948e5-26d6-4d10-9cba-ed5170fac563_742267.jpg",
-            locality: "Sarjapur Road",
-            areaName: "Sarjapur Road",
-            costForTwo: "\u20B9500 for two",
-            cuisines: [
-                "sandwich",
-                "wrap",
-                "Fast Food",
-                "Pastas",
-                "Italian",
-                "Salads",
-                "Healthy Food",
-                "Desserts",
-                "Continental"
-            ],
-            avgRating: 4.6,
-            parentId: "21019",
-            avgRatingString: "4.6",
-            totalRatingsString: "4.7K+",
-            sla: {
-                deliveryTime: 23,
-                lastMileTravel: 1.2,
-                serviceability: "SERVICEABLE",
-                slaString: "20-25 mins",
-                lastMileTravelString: "1.2 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-26 23:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    },
-                    {
-                        imageId: "Rxawards/_CATEGORY-Sandwiches.png",
-                        description: "Delivery!"
-                    },
-                    {
-                        imageId: "newg.png",
-                        description: "Gourmet"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Rxawards/_CATEGORY-Sandwiches.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Gourmet",
-                                    imageId: "newg.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "ITEMS",
-                subHeader: "AT \u20B9132"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "3.9",
-                    ratingCount: "155"
-                },
-                source: "GOOGLE",
-                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/paris-panini-gourmet-sandwiches-and-wraps-sarjapur-road-rest742267",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "23793",
-            name: "Domino's Pizza",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/11/11/c876e654-6ec1-47d7-9a73-10bda7f9f742_23793.JPG",
-            locality: "Doddakannelli",
-            areaName: "Sarjapur Road",
-            costForTwo: "\u20B9400 for two",
-            cuisines: [
-                "Pizzas",
-                "Italian",
-                "Pastas",
-                "Desserts"
-            ],
-            avgRating: 4.3,
-            parentId: "2456",
-            avgRatingString: "4.3",
-            totalRatingsString: "16K+",
-            sla: {
-                deliveryTime: 20,
-                lastMileTravel: 0.4,
-                serviceability: "SERVICEABLE",
-                slaString: "15-20 mins",
-                lastMileTravelString: "0.4 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-26 23:59:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    },
-                    {
-                        imageId: "Rxawards/_CATEGORY-Pizza.png",
-                        description: "Delivery!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Rxawards/_CATEGORY-Pizza.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "ITEMS",
-                subHeader: "AT \u20B959"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "3.7",
-                    ratingCount: "2.4K+"
-                },
-                source: "GOOGLE",
-                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/dominos-pizza-doddakannelli-sarjapur-road-rest23793",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "72821",
-            name: "Burger King",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/18/1f9d675e-7e2e-4a7a-a494-6bdf23af4853_72821.jpg",
-            locality: "Dodda Kannali",
-            areaName: "Kaikondrahalli",
-            costForTwo: "\u20B9350 for two",
-            cuisines: [
-                "Burgers",
-                "American"
-            ],
-            avgRating: 4.1,
-            parentId: "166",
-            avgRatingString: "4.1",
-            totalRatingsString: "55K+",
-            sla: {
-                deliveryTime: 19,
-                lastMileTravel: 1.4,
-                serviceability: "SERVICEABLE",
-                slaString: "15-20 mins",
-                lastMileTravelString: "1.4 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 06:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "ITEMS",
-                subHeader: "AT \u20B959"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/burger-king-dodda-kannali-kaikondrahalli-rest72821",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "491",
-            name: "La Casa Brewery + Kitchen",
-            cloudinaryImageId: "yjh8kaozqsqpvadpcdga",
-            locality: "Sarjapur Road",
-            areaName: "Sarjapur Road",
-            costForTwo: "\u20B91000 for two",
-            cuisines: [
-                "Continental",
-                "North Indian",
-                "American",
-                "Chinese",
-                "Italian",
-                "Pizzas",
-                "Pastas",
-                "Steakhouse",
-                "Salads",
-                "Desserts"
-            ],
-            avgRating: 4.4,
-            parentId: "471640",
-            avgRatingString: "4.4",
-            totalRatingsString: "10K+",
-            sla: {
-                deliveryTime: 27,
-                lastMileTravel: 1.8,
-                serviceability: "SERVICEABLE",
-                slaString: "25-30 mins",
-                lastMileTravelString: "1.8 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-26 23:30:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    },
-                    {
-                        imageId: "newg.png",
-                        description: "Gourmet"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Gourmet",
-                                    imageId: "newg.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "60% OFF",
-                subHeader: "UPTO \u20B9120"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "4.2",
-                    ratingCount: "9.5K+"
-                },
-                source: "GOOGLE",
-                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/la-casa-brewery-kitchen-sarjapur-road-rest491",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "750232",
-            name: "Daily Kitchen - Everyday Homely Meals",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/10/d695071b-3f6c-42e3-ab65-254150948db3_750232.jpg",
-            locality: "Kaikondrahalli",
-            areaName: "Mahadevapura",
-            costForTwo: "\u20B9250 for two",
-            cuisines: [
-                "Home Food",
-                "Indian",
-                "North Indian",
-                "Thalis"
-            ],
-            avgRating: 4.5,
-            parentId: "444382",
-            avgRatingString: "4.5",
-            totalRatingsString: "1.3K+",
-            sla: {
-                deliveryTime: 25,
-                lastMileTravel: 1.7,
-                serviceability: "SERVICEABLE",
-                slaString: "20-30 mins",
-                lastMileTravelString: "1.7 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 02:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "Ratnesh_Badges/Rx_Awards_2025/Newcomers.png",
-                        description: "Delivery!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Ratnesh_Badges/Rx_Awards_2025/Newcomers.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "50% OFF",
-                discountTag: "FLAT DEAL"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/daily-kitchen-everyday-homely-meals-kaikondrahalli-mahadevapura-rest750232",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "533218",
-            name: "Goila Butter Chicken",
-            cloudinaryImageId: "5e19832da032dd69547565e27104706f",
-            locality: "Sarjapur Rd",
-            areaName: "Sarjapur Road",
-            costForTwo: "\u20B9600 for two",
-            cuisines: [
-                "North Indian",
-                "Biryani",
-                "Kebabs",
-                "Desserts"
-            ],
-            avgRating: 4.1,
-            parentId: "322587",
-            avgRatingString: "4.1",
-            totalRatingsString: "1.8K+",
-            sla: {
-                deliveryTime: 32,
-                lastMileTravel: 3,
-                serviceability: "SERVICEABLE",
-                slaString: "30-35 mins",
-                lastMileTravelString: "3.0 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 00:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "newg.png",
-                        description: "Gourmet"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "Gourmet",
-                                    imageId: "newg.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "60% OFF",
-                subHeader: "UPTO \u20B9120"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "--"
-                }
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/goila-butter-chicken-sarjapur-rd-sarjapur-road-rest533218",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "8246",
-            name: "Polar Bear",
-            cloudinaryImageId: "57262fe3839f0bff174f3d7e7cc8a2b4",
-            locality: "Sarjapur Road",
-            areaName: "Sarjapur Road",
-            costForTwo: "\u20B9200 for two",
-            cuisines: [
-                "Ice Cream",
-                "Desserts"
-            ],
-            avgRating: 4.6,
-            veg: true,
-            parentId: "726",
-            avgRatingString: "4.6",
-            totalRatingsString: "18K+",
-            sla: {
-                deliveryTime: 26,
-                lastMileTravel: 3.5,
-                serviceability: "SERVICEABLE",
-                slaString: "25-30 mins",
-                lastMileTravelString: "3.5 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-27 02:00:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "Ratnesh_Badges/Rx_Awards_2025/Icecream.png",
-                        description: "Delivery!"
-                    }
-                ]
-            },
-            isOpen: true,
-            aggregatedDiscountInfoV2: {},
-            type: "D",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Ratnesh_Badges/Rx_Awards_2025/Icecream.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "4.8",
-                    ratingCount: "2.7K+"
-                },
-                source: "GOOGLE",
-                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/polar-bear-sarjapur-road-rest8246",
-            type: "WEBLINK"
-        }
-    },
-    {
-        info: {
-            id: "339080",
-            name: "Starbucks Coffee",
-            cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2026/2/6/0eef7fb5-40d6-4b64-ae3d-d16b1e4222f9_339080.JPG",
-            locality: "Bellandur",
-            areaName: "Bellandur",
-            costForTwo: "\u20B9400 for two",
-            cuisines: [
-                "Beverages",
-                "Cafe",
-                "Snacks",
-                "Desserts",
-                "Bakery",
-                "Ice Cream"
-            ],
-            avgRating: 4.4,
-            parentId: "195515",
-            avgRatingString: "4.4",
-            totalRatingsString: "2.9K+",
-            sla: {
-                deliveryTime: 29,
-                lastMileTravel: 2.8,
-                serviceability: "SERVICEABLE",
-                slaString: "25-30 mins",
-                lastMileTravelString: "2.8 km",
-                iconType: "ICON_TYPE_EMPTY"
-            },
-            availability: {
-                nextCloseTime: "2026-02-26 23:59:00",
-                opened: true
-            },
-            badges: {
-                imageBadges: [
-                    {
-                        imageId: "android/static-assets/icons/big_rx.png",
-                        description: "bolt!"
-                    },
-                    {
-                        imageId: "Green%20Dot%20Awards/Best%20In%20Veg%20Cafe.png",
-                        description: "Delivery!"
-                    },
-                    {
-                        imageId: "Rxawards/_CATEGORY-Cafe%20&%20Chai.png",
-                        description: "Delivery!"
-                    }
-                ]
-            },
-            isOpen: true,
-            type: "F",
-            badgesV2: {
-                entityBadges: {
-                    imageBased: {
-                        badgeObject: [
-                            {
-                                attributes: {
-                                    description: "bolt!",
-                                    imageId: "android/static-assets/icons/big_rx.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Green%20Dot%20Awards/Best%20In%20Veg%20Cafe.png"
-                                }
-                            },
-                            {
-                                attributes: {
-                                    description: "Delivery!",
-                                    imageId: "Rxawards/_CATEGORY-Cafe%20&%20Chai.png"
-                                }
-                            }
-                        ]
-                    },
-                    textBased: {},
-                    textExtendedBadges: {}
-                }
-            },
-            aggregatedDiscountInfoV3: {
-                header: "\u20B985 OFF",
-                subHeader: "ABOVE \u20B9199",
-                discountTag: "FLAT DEAL"
-            },
-            differentiatedUi: {
-                displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
-                differentiatedUiMediaDetails: {
-                    lottie: {},
-                    video: {}
-                }
-            },
-            reviewsSummary: {},
-            displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
-            restaurantOfferPresentationInfo: {},
-            externalRatings: {
-                aggregatedRating: {
-                    rating: "4.4",
-                    ratingCount: "797"
-                },
-                source: "GOOGLE",
-                sourceIconImageId: "v1704440323/google_ratings/rating_google_tag"
-            },
-            ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
-        },
-        analytics: {
-            context: "seo-data-e334401f-7fdf-4314-be44-114e3a8e8317"
-        },
-        cta: {
-            link: "https://www.swiggy.com/city/bangalore/starbucks-coffee-bellandur-rest339080",
-            type: "WEBLINK"
-        }
-    }
-];
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"lq1kZ":[function(require,module,exports,__globalThis) {
-var $parcel$ReactRefreshHelpers$a646 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-$parcel$ReactRefreshHelpers$a646.init();
-var prevRefreshReg = globalThis.$RefreshReg$;
-var prevRefreshSig = globalThis.$RefreshSig$;
-$parcel$ReactRefreshHelpers$a646.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-const Footer = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "footer"
-    }, void 0, false, {
-        fileName: "src/components/Footer.js",
-        lineNumber: 2,
-        columnNumber: 10
-    }, undefined);
-};
-_c = Footer;
-exports.default = Footer;
-var _c;
-$RefreshReg$(_c, "Footer");
-
-  $parcel$ReactRefreshHelpers$a646.postlude(module);
-} finally {
-  globalThis.$RefreshReg$ = prevRefreshReg;
-  globalThis.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"dVPUn","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"50ygr":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"50ygr":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$a35d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$a35d.init();
 var prevRefreshReg = globalThis.$RefreshReg$;
@@ -21641,7 +21641,11 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _s = $RefreshSig$();
 const Header = ()=>{
+    _s();
+    const [btnLogin, setBtnLogin] = (0, _react.useState)("Login");
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "header",
         children: [
@@ -21653,12 +21657,12 @@ const Header = ()=>{
                     src: "https://thumbs.dreamstime.com/b/food-delivery-logo-design-template-134749604.jpg"
                 }, void 0, false, {
                     fileName: "src/Components/Header.js",
-                    lineNumber: 5,
+                    lineNumber: 8,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/Components/Header.js",
-                lineNumber: 4,
+                lineNumber: 7,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -21669,48 +21673,66 @@ const Header = ()=>{
                             children: "Home"
                         }, void 0, false, {
                             fileName: "src/Components/Header.js",
-                            lineNumber: 13,
+                            lineNumber: 16,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
                             children: "About Us"
                         }, void 0, false, {
                             fileName: "src/Components/Header.js",
-                            lineNumber: 14,
+                            lineNumber: 17,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
                             children: "Contact Us"
                         }, void 0, false, {
                             fileName: "src/Components/Header.js",
-                            lineNumber: 15,
+                            lineNumber: 18,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
                             children: "Cart"
                         }, void 0, false, {
                             fileName: "src/Components/Header.js",
-                            lineNumber: 16,
+                            lineNumber: 19,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                                className: "login",
+                                onClick: ()=>{
+                                    btnLogin === "Login" ? setBtnLogin("Logout") : setBtnLogin("Login");
+                                },
+                                children: btnLogin
+                            }, void 0, false, {
+                                fileName: "src/Components/Header.js",
+                                lineNumber: 21,
+                                columnNumber: 13
+                            }, undefined)
+                        }, void 0, false, {
+                            fileName: "src/Components/Header.js",
+                            lineNumber: 20,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/Components/Header.js",
-                    lineNumber: 12,
+                    lineNumber: 15,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/Components/Header.js",
-                lineNumber: 11,
+                lineNumber: 14,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/Components/Header.js",
-        lineNumber: 3,
+        lineNumber: 6,
         columnNumber: 5
     }, undefined);
 };
+_s(Header, "uoGcORi0m67XXSEV2whzhVqb92E=");
 _c = Header;
 exports.default = Header;
 var _c;
@@ -21721,7 +21743,7 @@ $RefreshReg$(_c, "Header");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"loQlg":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"loQlg":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$8a58 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$8a58.init();
 var prevRefreshReg = globalThis.$RefreshReg$;
@@ -21735,57 +21757,100 @@ parcelHelpers.export(exports, "Body", ()=>Body);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _restaurantCard = require("./RestaurantCard");
 var _restaurantCardDefault = parcelHelpers.interopDefault(_restaurantCard);
-var _data = require("../../data");
+var _data = require("../utils/data");
 var _react = require("react");
+var _shimmerUI = require("./ShimmerUI");
+var _shimmerUIDefault = parcelHelpers.interopDefault(_shimmerUI);
 var _s = $RefreshSig$();
-const resList = (0, _data.restaurants);
 const Body = ()=>{
     _s();
-    let [listOfRestaurants, setListOfRestaurants] = (0, _react.useState)((0, _data.restaurants));
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+    const [listOfRestaurants, setListOfRestaurants] = (0, _react.useState)([]);
+    const [filteredRestaurants, setFilteredRestaurants] = (0, _react.useState)([]);
+    const [searchText, setSearchText] = (0, _react.useState)("");
+    (0, _react.useEffect)(()=>{
+        fetchData();
+    }, []);
+    const fetchData = async ()=>{
+        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=25.5794423&lng=85.143892&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+        const json = await data.json();
+        console.log(json);
+        console.log(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
+        setListOfRestaurants(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
+        setFilteredRestaurants(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
+    };
+    return filteredRestaurants.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _shimmerUIDefault.default), {}, void 0, false, {
+        fileName: "src/components/Body.js",
+        lineNumber: 32,
+        columnNumber: 5
+    }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "search",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                    className: "btn-top-rated",
-                    onClick: ()=>{
-                        const filteredList = listOfRestaurants.filter((res)=>res?.info.avgRating > 4);
-                        console.log(filteredList);
-                        setListOfRestaurants(filteredList);
-                    },
-                    children: "Top Rated Restaurants"
-                }, void 0, false, {
-                    fileName: "src/components/Body.js",
-                    lineNumber: 12,
-                    columnNumber: 9
-                }, undefined)
-            }, void 0, false, {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        className: "",
+                        type: "text",
+                        value: searchText,
+                        onChange: (e)=>{
+                            setSearchText(e.target.value);
+                        }
+                    }, void 0, false, {
+                        fileName: "src/components/Body.js",
+                        lineNumber: 36,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        onClick: ()=>{
+                            const filteredList = listOfRestaurants.filter((res)=>res?.info?.name.toLowerCase().includes(searchText.toLowerCase()));
+                            setFilteredRestaurants(filteredList);
+                        },
+                        children: "Search"
+                    }, void 0, false, {
+                        fileName: "src/components/Body.js",
+                        lineNumber: 44,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        className: "btn-top-rated",
+                        onClick: ()=>{
+                            const filteredList = listOfRestaurants.filter((res)=>res?.info.avgRating > 4.2);
+                            console.log(filteredList);
+                            setFilteredRestaurants(filteredList);
+                        },
+                        children: "Top Rated Restaurants"
+                    }, void 0, false, {
+                        fileName: "src/components/Body.js",
+                        lineNumber: 54,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
                 fileName: "src/components/Body.js",
-                lineNumber: 11,
+                lineNumber: 35,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "restaurant-container",
-                children: listOfRestaurants.map((restaurant)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _restaurantCardDefault.default), {
+                children: filteredRestaurants.map((restaurant)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _restaurantCardDefault.default), {
                         res: restaurant?.info
                     }, restaurant?.info.id, false, {
                         fileName: "src/components/Body.js",
-                        lineNumber: 29,
+                        lineNumber: 70,
                         columnNumber: 11
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/Body.js",
-                lineNumber: 26,
+                lineNumber: 68,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/Body.js",
-        lineNumber: 10,
+        lineNumber: 34,
         columnNumber: 5
     }, undefined);
 };
-_s(Body, "ZprVr3Sdv7aSlkOzrQkexHGZkNA=");
+_s(Body, "ao9dRsAY8PxXT1sBJZu2Wi4kwt4=");
 _c = Body;
 var _c;
 $RefreshReg$(_c, "Body");
@@ -21795,7 +21860,7 @@ $RefreshReg$(_c, "Body");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","./RestaurantCard":"lCpT9","../../data":"fFIED","react":"jMk1U"}],"lCpT9":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","./RestaurantCard":"lCpT9","../utils/data":"g2h7q","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","./ShimmerUI":"9KiQ0"}],"lCpT9":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$7721 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$7721.init();
 var prevRefreshReg = globalThis.$RefreshReg$;
@@ -21876,6 +21941,150 @@ var _c;
 $RefreshReg$(_c, "RestaurantCard");
 
   $parcel$ReactRefreshHelpers$7721.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"9KiQ0":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$d829 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$d829.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$d829.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const ShimmerUI = ()=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "shimmer-container",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 4,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 5,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 6,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 7,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 8,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 9,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 10,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 11,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 12,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 13,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 14,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 15,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 16,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 17,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 18,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "shimmer-card"
+            }, void 0, false, {
+                fileName: "src/components/ShimmerUI.js",
+                lineNumber: 19,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/ShimmerUI.js",
+        lineNumber: 3,
+        columnNumber: 5
+    }, undefined);
+};
+_c = ShimmerUI;
+exports.default = ShimmerUI;
+var _c;
+$RefreshReg$(_c, "ShimmerUI");
+
+  $parcel$ReactRefreshHelpers$d829.postlude(module);
 } finally {
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
