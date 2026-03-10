@@ -1,6 +1,8 @@
+import { image_URL } from "../utils/constants";
+
 const RestaurantCard = (props) => {
   //console.log(resName);
-  const image_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
+
   const {
     name,
     cuisines,

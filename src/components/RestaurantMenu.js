@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ShimmerUI from "./ShimmerUI";
 import { useParams } from "react-router";
+import { MENU_URL } from "../utils/constants";
 
 const RestaurantMenu = () => {
   const [resData, setResData] = useState(null);
@@ -11,10 +12,8 @@ const RestaurantMenu = () => {
     fetchData();
   }, []);
 
-  const MENU_URL =
-    "https://corsproxy.io/?url=https://namastedev.com/api/v1/listRestaurantMenu/123456";
   const fetchData = async () => {
-    const data = await fetch(MENU_URL);
+    const data = await fetch(MENU_URL + resId);
     const json = await data.json();
     setResData(json);
   };

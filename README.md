@@ -29,3 +29,8 @@ when a dependency array- renders with change in array
 --instead of <app> wrap inside <RouterProvider> and inject appRouter in <RouterProvider router={appRouter}>
 -Outlet when you want to conditional rendering like navigation button then outlet help you
 -Link when you need to navigate like on button click without refreshing a page,like SPA. It is a wrapper to anchor tag but because of react router it gives you a special benefit like SPA
+
+two type of components-
+
+-Functional Components- A function that return some piece of JSX
+-Class-based Components- A class (extends React.Component)is having render method that return some piece of JSX

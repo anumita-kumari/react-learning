@@ -4,6 +4,7 @@ import { restaurants } from "../utils/data";
 import { useEffect, useState } from "react";
 import ShimmerUI from "./ShimmerUI";
 import { Link } from "react-router-dom";
+import { RES_URL } from "../utils/constants";
 
 export const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -13,7 +14,7 @@ export const Body = () => {
     fetchData();
   }, []);
   const fetchData = async () => {
-    const data = await fetch("https://namastedev.com/api/v1/listRestaurants");
+    const data = await fetch(RES_URL);
     const json = await data.json();
     console.log(json);
     console.log(
