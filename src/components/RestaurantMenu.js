@@ -2,30 +2,20 @@ import { useEffect, useState } from "react";
 import ShimmerUI from "./ShimmerUI";
 import { useParams } from "react-router";
 import { MENU_URL } from "../utils/constants";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-  const [resData, setResData] = useState(null);
   const { resId } = useParams();
-  console.log(resId);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const data = await fetch(MENU_URL + resId);
-    const json = await data.json();
-    setResData(json);
-  };
+  const resData = useRestaurantMenu(resId);
 
   if (resData === null) return <ShimmerUI />;
 
   const { name, cuisines, avgRating, costForTwo, sla } =
-    resData?.data?.cards[2]?.card?.card?.info;
+    resData?.cards[2]?.card?.card?.info;
   const { itemCards } =
-    resData.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
-      ?.card;
-  console.log("itemCards", itemCards);
+    resData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+  // console.log("itemCards", itemCards);
   return (
     <div>
       <h1>{name}</h1>
