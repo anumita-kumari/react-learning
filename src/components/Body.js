@@ -1,14 +1,16 @@
 import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import ShimmerUI from "./ShimmerUI";
 import { Link } from "react-router-dom";
-import { RES_URL } from "../utils/constants";
+import { RES_URL, swiggy_Menu_url } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 export const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const { loggedInUser, setUserName } = useContext(UserContext);
   useEffect(() => {
     fetchData();
   }, []);
@@ -71,6 +73,14 @@ export const Body = () => {
         >
           Top Rated Restaurants
         </button>
+        <input
+          className="m-2 p-2 border border-black-100 rounded-md"
+          type="text"
+          value={loggedInUser}
+          onChange={(e) => {
+            setUserName(e.target.value);
+          }}
+        />
         {}
       </div>
       <div className="flex flex-wrap">
@@ -80,7 +90,7 @@ export const Body = () => {
             key={restaurant?.info.id}
             to={"/restaurant/" + restaurant?.info.id}
           >
-            {restaurant?.info?.promoted ? (
+            {restaurant?.info?.avgRating > 4.5 ? (
               <PromotedRestaurant res={restaurant?.info} />
             ) : (
               <RestaurantCard res={restaurant?.info}></RestaurantCard>

@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { LOGO_URL } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
   const [btnLogin, setBtnLogin] = useState("Logout");
   const onlineStatus = useOnlineStatus();
+  const { loggedInUser } = useContext(UserContext);
   return (
-    <div className="flex bg-green-300">
+    <div className="flex bg-green-100">
       <div className="w-30">
         <img className="w-32" alt="logo" src={LOGO_URL} />
       </div>
@@ -41,6 +43,7 @@ const Header = () => {
               {btnLogin}
             </button>
           </li>
+          <li className="px-4">User:{loggedInUser}</li>
         </ul>
       </div>
     </div>

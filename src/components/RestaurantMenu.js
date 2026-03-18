@@ -3,36 +3,54 @@ import ShimmerUI from "./ShimmerUI";
 import { useParams } from "react-router";
 import { MENU_URL } from "../utils/constants";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import ItemCategory from "./ItemCategory";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
 
   const resData = useRestaurantMenu(resId);
+  const [showList, setShowList] = useState(false);
+  const [showIndex, setShowIndex] = useState(0);
 
   if (resData === null) return <ShimmerUI />;
 
   const { name, cuisines, avgRating, costForTwo, sla } =
     resData?.cards[2]?.card?.card?.info;
-  const { itemCards } =
-    resData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
-  // console.log("itemCards", itemCards);
+
+  const filteredListCat =
+    resData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+      (item) =>
+        item?.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+    );
   return (
-    <div>
-      <h1>{name}</h1>
-      <h4>
-        {cuisines.join(", ")} - {costForTwo}
+    <div className="m-2 p-2 mx-auto w-6/12">
+      <h1 className="font-bold text-2xl text-center">{name}</h1>
+      <div className="m-2 p-2 border border-black text-center rounded-lg shadow-lg">
+        <h4 className="font-bold text-sm">
+          {avgRating} ⭐️ - {costForTwo}
+        </h4>
+        <h4 className="font-bold text-xs">{cuisines.join(", ")}</h4>
+        <h4 className="font-bold text-xs">{sla?.deliveryTime} minutes</h4>
+      </div>
+
+      <h4 className="my-2 mx-auto from-neutral-300  text-center text-md">
+        ↞ Menu ↠
       </h4>
-      <h4>{avgRating} ⭐️ </h4>
-      <h4>Delivery Time - {sla?.deliveryTime} minutes</h4>
-      <h4>Menu</h4>
-      <ul>
-        {itemCards?.map((item) => (
-          <li key={item.card?.info?.id}>
-            {item.card?.info?.name} - Rs.
-            {item.card?.info?.price / 100}
-          </li>
+      <hr className="h-px my-8 bg-slate-800 border-1" />
+
+      <div>
+        {filteredListCat.map((item, index) => (
+          <ItemCategory
+            key={item.card?.card?.title}
+            items={item.card?.card}
+            showList={index === showIndex ? true : false}
+            setShowIndex={() => {
+              setShowIndex(index);
+            }}
+          />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

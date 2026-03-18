@@ -34,3 +34,61 @@ two type of components-
 
 -Functional Components- A function that return some piece of JSX
 -Class-based Components- A class (extends React.Component)is having render method that return some piece of JSX
+
+Lazy loading
+-import through import(./path)
+lazy(()=>{import(./path)})
+
+    -suspense
+    <Suspense fallback={<h1>Loading</h1>}></Suspense>
+
+-Higher Order Components
+A functional component that can enhance an existing component.
+also return a component(a component also returns some JSX)
+also excepts a component as input
+
+-Lifting State Up(revise again)
+If you want to change state variable of parent from child then you can do indirectly by using this.
+
+Uncontrolled & Uncontrolled Components
+
+    When child component actions controlled by parent known as controlled component else uncontrolled component
+
+    Props Drilling-(To avoid this we use React context(use context))
+
+    If we need to pass data from one parent to another grand child or some higher label to lower label is know as props drilling.
+    That means we are drilling data from one component to another.
+
+React context(use context)-
+Sharing data globally among components
+
+    Context -where we can store global data and can access from any component of your project.
+
+    -Subscriber and Provider model
+
+    -create user context using createContext from react
+        const LoggedContext=createContext({
+            loggedInUser:"DefaultUser"
+        })
+
+
+    -Two ways to access it(userContext hook and <User.Consumer></User>)
+    const {loggedInUser}=useContext(UserContext);
+    -in case of Class based component
+        <User.Consumer>
+        </User>
+
+Redux Store-  
+ Write operation
+component----> Dispatch(Action) ----->Reducer function------> Store(slice)
+
+                                                                                ^
+                    ^                                                            |
+                    |  ________________   Selector(Subscribe)    Read operation
+
+-Import @reduxjs/toolkit & react-redux
+-create a store
+-connect store to the app
+-create cart slice
+-Dispatch action
+-react selector method
